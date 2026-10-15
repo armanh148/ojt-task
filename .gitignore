@@ -1,0 +1,5 @@
+node_modules/
+data/pos_enterprise.db-shm
+data/pos_enterprise.db-wal
+.DS_Store
+*.log

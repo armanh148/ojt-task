@@ -1,0 +1,163 @@
+/* Thermal Receipt Printer CSS (80mm & 58mm Standard ESC/POS Compatible) */
+
+/* Screen Preview Container */
+.receipt-preview-container {
+    background: #ffffff;
+    color: #000000;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    padding: 18px 14px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    line-height: 1.35;
+    transition: width 0.2s ease;
+}
+
+/* 80mm Standard Width (~302px at 96 DPI, standard thermal roll) */
+.receipt-80mm {
+    width: 300px;
+    font-size: 11px;
+}
+
+/* 58mm Compact Width (~219px at 96 DPI) */
+.receipt-58mm {
+    width: 216px;
+    font-size: 9.5px;
+    padding: 10px 8px;
+}
+
+.receipt-header {
+    text-align: center;
+    border-bottom: 1px dashed #000000;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+
+.receipt-logo-title {
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.receipt-sub {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.receipt-meta-grid {
+    font-size: 10px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed #000000;
+    padding-bottom: 8px;
+}
+
+.receipt-meta-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Pharmacy Specific Doctor/Patient Section */
+.receipt-rx-box {
+    border: 1px solid #000;
+    padding: 4px 6px;
+    margin-bottom: 8px;
+    font-size: 9.5px;
+    background: #fdfdfd;
+}
+
+.receipt-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+    font-size: 10px;
+}
+
+.receipt-items-table th {
+    border-bottom: 1px dashed #000000;
+    padding: 4px 0;
+    text-align: left;
+}
+
+.receipt-items-table td {
+    padding: 3px 0;
+    vertical-align: top;
+}
+
+.receipt-items-table .col-right {
+    text-align: right;
+}
+
+.receipt-batch-sub {
+    font-size: 8.5px;
+    color: #333;
+    display: block;
+}
+
+.receipt-totals-section {
+    border-top: 1px dashed #000000;
+    border-bottom: 1px dashed #000000;
+    padding: 6px 0;
+    margin-bottom: 8px;
+}
+
+.receipt-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    margin-bottom: 2px;
+}
+
+.receipt-grand-row {
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid #000;
+}
+
+.receipt-barcode-box {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 9px;
+}
+
+.barcode-svg {
+    width: 180px;
+    height: 40px;
+    margin: 4px auto;
+    display: block;
+}
+
+.receipt-footer {
+    text-align: center;
+    font-size: 9px;
+    margin-top: 8px;
+    color: #444;
+}
+
+/* PRINT MEDIA QUERY FOR PHYSICAL THERMAL PRINTER */
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+
+    #printableThermalReceipt, #printableThermalReceipt * {
+        visibility: visible !important;
+    }
+
+    #printableThermalReceipt {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        margin: 0 !important;
+        padding: 0 4mm !important;
+        box-shadow: none !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    @page {
+        size: 80mm auto;
+        margin: 0mm;
+    }
+}
