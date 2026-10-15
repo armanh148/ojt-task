@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,8 +47,12 @@
             </a>
         </nav>
 
-        <!-- Domain Switcher & Hardware Scanner Telemetry -->
+        <!-- Domain Switcher, Theme Switcher & Hardware Scanner Telemetry -->
         <div class="header-actions">
+            <button class="theme-toggle-btn" id="btnToggleTheme" title="Toggle Light / Dark Mode">
+                <span id="themeToggleIcon">☀️</span> <span id="themeToggleText">Light</span>
+            </button>
+
             <div class="domain-toggle">
                 <button class="domain-btn active-retail" id="btnModeRetail">
                     🛒 Retail Mart
@@ -468,7 +472,7 @@
                     </div>
 
                     <!-- Live Test Output Console -->
-                    <div style="background: #000; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1rem; font-family: var(--font-mono); font-size: 0.8rem; color: #34d399; min-height: 250px; overflow-y: auto; white-space: pre-wrap;" id="concurrencyConsoleOutput">
+                    <div style="background: #0f172a; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1rem; font-family: var(--font-mono); font-size: 0.8rem; color: #38bdf8; min-height: 250px; overflow-y: auto; white-space: pre-wrap;" id="concurrencyConsoleOutput">
 Click "Run Concurrency & Rollback Stress Test" above to start live automated load testing...
                     </div>
                 </div>
@@ -769,6 +773,36 @@ Click "Run Concurrency & Rollback Stress Test" above to start live automated loa
                     if (targetTab === 'tabZReport') repCtrl.loadLiveZReport();
                 });
             });
+
+            // Theme Switcher Management (Default: Light Mode)
+            const savedTheme = localStorage.getItem('pos_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeButton(savedTheme);
+
+            const btnTheme = document.getElementById('btnToggleTheme');
+            if (btnTheme) {
+                btnTheme.addEventListener('click', () => {
+                    const current = document.documentElement.getAttribute('data-theme') || 'light';
+                    const next = current === 'light' ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('pos_theme', next);
+                    updateThemeButton(next);
+                });
+            }
+
+            function updateThemeButton(theme) {
+                const icon = document.getElementById('themeToggleIcon');
+                const text = document.getElementById('themeToggleText');
+                if (icon && text) {
+                    if (theme === 'light') {
+                        icon.textContent = '☀️';
+                        text.textContent = 'Light';
+                    } else {
+                        icon.textContent = '🌙';
+                        text.textContent = 'Dark';
+                    }
+                }
+            }
 
             // Concurrency Suite Browser Runner
             const btnRunConcurrency = document.getElementById('btnRunConcurrencySuite');

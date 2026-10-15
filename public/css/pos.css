@@ -176,12 +176,18 @@
 
 .card-fefo-badge {
     font-size: 0.65rem;
-    background: rgba(16, 185, 129, 0.12);
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
     border-radius: 4px;
     padding: 0.15rem 0.35rem;
     font-family: var(--font-mono);
+}
+
+[data-theme="dark"] .card-fefo-badge {
+    background: rgba(16, 185, 129, 0.12);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .card-bottom {
@@ -194,7 +200,7 @@
 .card-price {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #60a5fa;
+    color: var(--card-price-color);
     font-family: var(--font-mono);
 }
 
@@ -369,7 +375,7 @@
 .rx-tag-title {
     font-size: 0.72rem;
     font-weight: 700;
-    color: #34d399;
+    color: var(--color-pharmacy);
     display: flex;
     align-items: center;
     gap: 0.35rem;
@@ -384,7 +390,7 @@
 .rx-tag-inputs input {
     padding: 0.35rem 0.55rem;
     font-size: 0.75rem;
-    background: var(--bg-base);
+    background: var(--bg-surface);
     border: 1px solid var(--border-medium);
     border-radius: var(--radius-sm);
     color: var(--text-primary);
@@ -430,7 +436,7 @@
 .grand-total-val {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #60a5fa;
+    color: var(--primary);
     font-family: var(--font-mono);
 }
 

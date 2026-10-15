@@ -77,16 +77,23 @@
 .zreport-row strong {
     color: var(--text-primary);
     font-family: var(--font-mono);
-}
-
 .margin-highlight {
-    background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
 }
 
 .margin-highlight .margin-big {
     font-size: 1.8rem;
     font-weight: 800;
-    color: #34d399;
+    color: #059669;
     font-family: var(--font-mono);
+}
+
+[data-theme="dark"] .margin-highlight {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="dark"] .margin-highlight .margin-big {
+    color: #34d399;
 }

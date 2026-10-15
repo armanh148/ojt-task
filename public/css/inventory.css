@@ -37,10 +37,15 @@
     font-size: 1.35rem;
 }
 
-.stat-icon-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-.stat-icon-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-.stat-icon-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-.stat-icon-red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+.stat-icon-blue { background: #eff6ff; color: #2563eb; }
+.stat-icon-green { background: #ecfdf5; color: #059669; }
+.stat-icon-amber { background: #fffbeb; color: #d97706; }
+.stat-icon-red { background: #fef2f2; color: #dc2626; }
+
+[data-theme="dark"] .stat-icon-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+[data-theme="dark"] .stat-icon-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+[data-theme="dark"] .stat-icon-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+[data-theme="dark"] .stat-icon-red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
 .stat-info {
     display: flex;
@@ -62,14 +67,19 @@
 
 /* Low Stock Alert Banner */
 .low-stock-banner {
-    background: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    background: #fef2f2;
+    border: 1px solid #fecaca;
     border-radius: var(--radius-lg);
     padding: 0.85rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     animation: fadeIn 0.3s ease;
+}
+
+[data-theme="dark"] .low-stock-banner {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .low-stock-banner-content {
@@ -83,8 +93,12 @@
 }
 
 .low-stock-banner-text strong {
-    color: #f87171;
+    color: #dc2626;
     font-size: 0.9rem;
+}
+
+[data-theme="dark"] .low-stock-banner-text strong {
+    color: #f87171;
 }
 
 .low-stock-banner-text p {
@@ -95,9 +109,10 @@
 /* Catalog Table Area */
 .catalog-table-card {
     background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid var(--border-medium);
     border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .table-toolbar {
@@ -158,12 +173,12 @@
 }
 
 .custom-table tr:hover td {
-    background: var(--bg-card);
+    background: var(--bg-surface-elevated);
 }
 
 .font-code {
     font-family: var(--font-mono);
-    color: #93c5fd;
+    color: var(--font-code-color);
 }
 
 .stock-pill {
@@ -177,9 +192,13 @@
     font-size: 0.72rem;
 }
 
-.stock-in { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-.stock-low { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-.stock-out { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+.stock-in { background: #ecfdf5; color: #047857; }
+.stock-low { background: #fffbeb; color: #b45309; }
+.stock-out { background: #fef2f2; color: #b91c1c; }
+
+[data-theme="dark"] .stock-in { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+[data-theme="dark"] .stock-low { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+[data-theme="dark"] .stock-out { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
 /* Inward Items Table inside Modal */
 .inward-items-table {
