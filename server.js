@@ -69,15 +69,20 @@ app.use((req, res) => {
     }
 });
 
-const server = app.listen(PORT, () => {
-    console.log(`=======================================================`);
-    console.log(`🚀 ENTERPRISE POS & INVENTORY MANAGEMENT SAAS READY!`);
-    console.log(`📍 URL: http://localhost:${PORT}`);
-    console.log(`📋 API Docs: http://localhost:${PORT}/api/docs/spec`);
-    console.log(`⚡ Hardware Scanner Listener: Active (<150ms SLA)`);
-    console.log(`🏥 FEFO Batch Engine: Enabled (Earliest-Expiring First)`);
-    console.log(`🔒 ACID Transaction Concurrency Guard: ACTIVE`);
-    console.log(`=======================================================`);
-});
+let server = null;
+if (!process.env.VERCEL) {
+    server = app.listen(PORT, () => {
+        console.log(`=======================================================`);
+        console.log(`🚀 ENTERPRISE POS & INVENTORY MANAGEMENT SAAS READY!`);
+        console.log(`📍 URL: http://localhost:${PORT}`);
+        console.log(`📋 API Docs: http://localhost:${PORT}/api/docs/spec`);
+        console.log(`⚡ Hardware Scanner Listener: Active (<150ms SLA)`);
+        console.log(`🏥 FEFO Batch Engine: Enabled (Earliest-Expiring First)`);
+        console.log(`🔒 ACID Transaction Concurrency Guard: ACTIVE`);
+        console.log(`=======================================================`);
+    });
+}
 
-module.exports = { app, server };
+module.exports = app;
+module.exports.app = app;
+module.exports.server = server;
