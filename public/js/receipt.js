@@ -38,6 +38,28 @@ const ReceiptEngine = {
             </tr>
         `).join('');
 
+        // Generate QR code (Fiscal verification & digital receipt link)
+        let qrSvg = invoice.qr_code_svg || '';
+        const qrSize = is80mm ? 100 : 80;
+        if (!qrSvg && typeof QRCode !== 'undefined' && typeof QRCode.toString === 'function') {
+            try {
+                const origin = (typeof window !== 'undefined' && window.location && window.location.origin)
+                    ? window.location.origin
+                    : 'http://localhost:3000';
+                const qrPayload = `${origin}/api/checkout/invoices/${encodeURIComponent(invoice.invoice_number)}`;
+                QRCode.toString(qrPayload, {
+                    type: 'svg',
+                    margin: 1,
+                    width: qrSize,
+                    errorCorrectionLevel: 'M'
+                }, (err, svg) => {
+                    if (!err && svg) qrSvg = svg;
+                });
+            } catch (e) {
+                console.warn('Thermal Receipt QR generation warning:', e);
+            }
+        }
+
         const html = `
             <div id="printableThermalReceipt" class="receipt-preview-container ${is80mm ? 'receipt-80mm' : 'receipt-58mm'}">
                 <div class="receipt-header">
@@ -107,6 +129,15 @@ const ReceiptEngine = {
                     </div>
                     ` : ''}
                 </div>
+
+                ${qrSvg ? `
+                <div class="receipt-qr-box">
+                    <div class="receipt-qr-code">
+                        ${qrSvg}
+                    </div>
+                    <div class="receipt-qr-caption">Scan for Digital Receipt & Fiscal Verification</div>
+                </div>
+                ` : ''}
 
                 <div class="receipt-barcode-box">
                     <svg class="barcode-svg" viewBox="0 0 160 32">

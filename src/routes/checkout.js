@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const QRCode = require('qrcode');
 const { db, withImmediateTransaction } = require('../db/database');
 
 // GET /api/checkout/invoices (List recent invoices)
@@ -38,7 +39,7 @@ router.get('/invoices', (req, res) => {
 });
 
 // GET /api/checkout/invoices/:id (Get invoice details for thermal receipt printing)
-router.get('/invoices/:id', (req, res) => {
+router.get('/invoices/:id', async (req, res) => {
     try {
         const invoice = db.prepare('SELECT * FROM invoices WHERE id = ? OR invoice_number = ?').get(req.params.id, req.params.id);
         if (!invoice) {
@@ -55,14 +56,24 @@ router.get('/invoices/:id', (req, res) => {
             WHERE ii.invoice_id = ?
         `).all(invoice.id);
 
-        res.json({ success: true, data: { ...invoice, items } });
+        let qr_code_svg = null;
+        try {
+            qr_code_svg = await QRCode.toString(invoice.invoice_number, {
+                type: 'svg',
+                margin: 1,
+                width: 100,
+                errorCorrectionLevel: 'M'
+            });
+        } catch (e) {}
+
+        res.json({ success: true, data: { ...invoice, items, qr_code_svg } });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
     }
 });
 
 // POST /api/checkout (ACID Atomic Checkout with Row-Level Locking, FEFO Auto-Deduction & Rollback)
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const startTime = performance.now();
 
     try {
@@ -337,13 +348,23 @@ router.post('/', (req, res) => {
             };
         });
 
+        let qr_code_svg = null;
+        try {
+            qr_code_svg = await QRCode.toString(transactionResult.invoice_number, {
+                type: 'svg',
+                margin: 1,
+                width: 100,
+                errorCorrectionLevel: 'M'
+            });
+        } catch (e) {}
+
         const latencyMs = Math.round(performance.now() - startTime);
 
         res.status(201).json({
             success: true,
             latency_ms: latencyMs,
             message: 'Checkout completed with ACID transaction integrity and FEFO stock deduction.',
-            data: transactionResult
+            data: { ...transactionResult, qr_code_svg }
         });
     } catch (err) {
         const latencyMs = Math.round(performance.now() - startTime);

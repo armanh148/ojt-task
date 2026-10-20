@@ -115,16 +115,63 @@
     border-top: 1px solid #000;
 }
 
+.receipt-qr-box {
+    text-align: center;
+    margin: 10px auto 6px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.receipt-qr-code {
+    display: inline-block;
+    background: #ffffff;
+    padding: 3px;
+    border: 1px dashed #94a3b8;
+    border-radius: 4px;
+    line-height: 0;
+}
+
+.receipt-qr-code svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.receipt-80mm .receipt-qr-code svg {
+    width: 100px;
+    height: 100px;
+}
+
+.receipt-58mm .receipt-qr-code svg {
+    width: 80px;
+    height: 80px;
+}
+
+.receipt-58mm .barcode-svg {
+    width: 140px;
+    height: 32px;
+}
+
+.receipt-qr-caption {
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-top: 4px;
+    color: #222222;
+    text-transform: uppercase;
+}
+
 .receipt-barcode-box {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 8px;
     font-size: 9px;
 }
 
 .barcode-svg {
     width: 180px;
-    height: 40px;
-    margin: 4px auto;
+    height: 36px;
+    margin: 3px auto;
     display: block;
 }
 
