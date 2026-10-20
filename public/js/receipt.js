@@ -41,13 +41,15 @@ const ReceiptEngine = {
         // Generate QR code (Fiscal verification & digital receipt link)
         let qrSvg = invoice.qr_code_svg || '';
         const qrSize = is80mm ? 100 : 80;
-        if (!qrSvg && typeof QRCode !== 'undefined' && typeof QRCode.toString === 'function') {
+        const qrLib = (typeof window !== 'undefined' && window.QRCode) ? window.QRCode : ((typeof QRCode !== 'undefined') ? QRCode : null);
+
+        if (!qrSvg && qrLib && typeof qrLib.toString === 'function') {
             try {
                 const origin = (typeof window !== 'undefined' && window.location && window.location.origin)
                     ? window.location.origin
                     : 'http://localhost:3000';
                 const qrPayload = `${origin}/api/checkout/invoices/${encodeURIComponent(invoice.invoice_number)}`;
-                QRCode.toString(qrPayload, {
+                qrLib.toString(qrPayload, {
                     type: 'svg',
                     margin: 1,
                     width: qrSize,
